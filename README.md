@@ -486,12 +486,18 @@ This TodoMVC-style sample features routing through [vue-router](https://github.c
 You may also want to look into [Vuex](https://github.com/vuejs/vuex) if you're looking for [Redux](http://redux.js.org/)-style state management.
 
 
-VueLoaderPlugin 踩坑:
+# VueLoaderPlugin 踩坑:
 
 在用 webpack 的时候，要处理分离出来的 .vue 文件，需要借助第三方的loader。
+
 安装第三方loader
+```
 npm i vue-loader vue-template-compiler -D
+```
+
 在webpack的配置文件中配置loader配置项
+
+```json
 {
    test: /\.vue$/,
    loader: "vue-loader",
@@ -502,13 +508,21 @@ npm i vue-loader vue-template-compiler -D
       }
    }
 },
+```
+
 这时候运行报错
+
 这个时候运行，发现还是报错，例如：
+
 1.ReferenceError: VueLoaderPlugin is not defined
+
 2.vue-loader was used without the corresponding plugin. Make sure to include VueLoaderPlugin in your webpack config.
+
 还缺少两个配置。因为在vue-loader@15.x 版本，有些东西必须要配置。
 打开webpack的配置文件 webpack.config.js：
+```
 const { VueLoaderPlugin } = require("vue-loader");
+```
 然后还在此文件中配置 plugins 节点
 plugins: [new VueLoaderPlugin()],
 完事！
